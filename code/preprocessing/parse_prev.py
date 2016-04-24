@@ -6,7 +6,7 @@ import pickle
 from sklearn import preprocessing
 
 def read_file(fileName):
-	data = np.zeros((3168,3,1308))
+	data = np.zeros((3430,3,1308))
 	with open(fileName,"rb") as f:
 		reader = csv.reader(f)
 		next(reader, None)
@@ -14,7 +14,7 @@ def read_file(fileName):
 		curPlane = 0
 		for row in reader:
 			row = list(row)
-			if (curRow == 3168):
+			if (curRow == 3430):
 				curRow = 0
 				curPlane += 1
 			else:
@@ -31,7 +31,7 @@ def imput_data(data):
 		imp = Imputer(missing_values='NaN', strategy='mean', axis=0)
 		imp.fit(data[:,:,i])
 		data[:,:,i] = imp.transform(data[:,:,i])
-		#data[:,-1,i] = preprocessing.scale(data[:,-1,i])
+		data[:,-1,i] = preprocessing.scale(data[:,-1,i])
 	return data
 
 def pickle_data(data,fileName):
