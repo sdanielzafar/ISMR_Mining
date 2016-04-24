@@ -10,10 +10,11 @@ def main():
 	args = parser.parse_args()
 	sstFile = args.s
 	sstData = load_data(sstFile)
-	pca = PCA()
-	pca.fit(np.transpose(sstData))
-	pickle_data(pca,"PCA2",sstFile)
-	print(pca.explained_variance_ratio_)
+	print(sstData.shape)
+	pca = PCA(n_components=35)
+	pca.fit_transform(np.transpose(sstData))
+	pickle_data(np.transpose(pca.components_),"EOF",sstFile)
+	print(np.transpose(pca.components_).shape)
 
 if __name__ == "__main__":
 	main()
